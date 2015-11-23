@@ -4,6 +4,7 @@
   "description": "Light show visualizer written in JS with Electron",
   "main": "src/main.js",
   "scripts": {
+    "start": "electron src/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/rjayatilleka/electron-visualizer/issues"
   },
-  "homepage": "https://github.com/rjayatilleka/electron-visualizer#readme"
+  "homepage": "https://github.com/rjayatilleka/electron-visualizer#readme",
+  "devDependencies": {
+    "electron-packager": "^5.1.1",
+    "electron-prebuilt": "^0.35.1"
+  },
+  "dependencies": {
+    "app-root-path": "^1.0.0"
+  }
 }
