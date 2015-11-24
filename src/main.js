@@ -1,23 +1,25 @@
-const appRoot = require('app-root-path');
+'use strict';
 
-const electron = require('electron');
-const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
+const appRoot = require('app-root-path')
 
-var mainWindow = null;
+const electron = require('electron')
+const app = electron.app
+const BrowserWindow = electron.BrowserWindow
 
-app.on('window-all-closed', () => app.quit());
+let mainWindow = null
+
+app.on('window-all-closed', () => app.quit())
 
 app.on('ready', () => {
   // Window set up
-  mainWindow = new BrowserWindow({width: 800, height: 600});
-  webContents = mainWindow.webContents;
-  mainWindow.loadURL('file://' + appRoot + '/src/index.html');
-  webContents.openDevTools();
-  mainWindow.on('closed', () => mainWindow = null);
+  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow.loadURL('file://' + appRoot + '/src/index.html')
+  mainWindow.on('closed', () => mainWindow = null)
+
+  const webContents = mainWindow.webContents
+  webContents.openDevTools()
 
   // Send argument for log file
-  webContents.on('did-finish-load', () => {
-    webContents.send('targetLog', process.argv[2]);
-  });
-});
+  webContents.on('did-finish-load', () =>
+    webContents.send('targetLog', process.argv[2]))
+})

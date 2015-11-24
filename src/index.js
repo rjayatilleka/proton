@@ -1,39 +1,33 @@
-const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
+'use strict';
 
-const rx = require('rx');
-const fs = require('fs');
-const appRoot = require('app-root-path');
-const Tail = require('tail').Tail;
-const ipcRenderer = require('electron').ipcRenderer;
+const appRoot = require('app-root-path')
+const fs = require('fs')
+const rx = require('rx')
+const Tail = require('tail').Tail
+const ipcRenderer = require('electron').ipcRenderer
 
-const drawSVGFile = (drawing, path) => {
-  fs.readFile(path, 'utf8', (err, data) => {
-    if (err) {
-      console.log('Error reading ' + path, err);
-    } else {
-      drawing.svg(data);
-      console.log('Drew svg data');
-    }
-  });
-};
+const drawSVGFile = (drawing, path) =>
+  fs.readFile(path, 'utf8', (err, data) => drawing.svg(data))
 
-const adjust = (opacity, channel) =>
-  Array.from($$('.channel' + channel))
-    .forEach(e => e.style.opacity = opacity);
+const adjust = (drawing) => (opacity, channel) =>
+  drawing.select('.channel' + channel).style('opacity', opacity)
+
+const makeTailerStream = (targetLog) =>
+  rx.Observable.fromEvent(new Tail(targetLog), 'line')
+
+const setupGraph = (drawing, tailerStream) =>
+  tailerStream
+    .map(line => line.split(' '))
+    .map(splitLine => splitLine.map(num => parseInt(num, 16) / 256))
+    .tap(opacityValues => console.log(opacityValues))
+    .subscribe(opacityValues => opacityValues.forEach(adjust(drawing)))
 
 const main = () => {
-  const drawing = SVG('main');
-  drawSVGFile(drawing, appRoot + '/images/example1.svg');
+  const drawing = SVG('main').size(400, 200)
+  drawSVGFile(drawing, appRoot + '/images/example1.svg')
 
-  // ipcRenderer.on('targetLog', (e, targetLog) => {
-  //   const tail = rx.Observable.fromEvent(new Tail(targetLog), 'line');
+  ipcRenderer.on('targetLog', (e, targetLog) =>
+    setupGraph(drawing, makeTailerStream(targetLog)))
+}
 
-  //   tail.map(line => line.split(' '))
-  //     .map(splitLine => splitLine.map(num => parseInt(num, 16)))
-  //     .tap(opacityValues => console.log(opacityValues))
-  //     .subscribe(opacityValues => opacityValues.forEach(adjust));
-  // });
-};
-
-main();
+main()
