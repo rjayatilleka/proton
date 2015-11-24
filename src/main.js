@@ -1,7 +1,8 @@
+const appRoot = require('app-root-path');
+
 const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
-const appRoot = require('app-root-path');
 
 var mainWindow = null;
 
