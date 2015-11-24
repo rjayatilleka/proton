@@ -21,6 +21,7 @@
     "electron-prebuilt": "^0.35.1"
   },
   "dependencies": {
-    "app-root-path": "^1.0.0"
+    "app-root-path": "^1.0.0",
+    "rx": "^4.0.7"
   }
 }
