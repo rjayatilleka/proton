@@ -1,7 +1,8 @@
-const $ = document.querySelector.bind(document)
-const rx = require('rx')
+const $ = document.querySelector.bind(document);
+const appRoot = require('app-root-path')
+const rx = require('rx');
+const Tail = require('tail').Tail;
 
-const main = $('#main');
-rx.Observable
-  .interval(1000)
-  .subscribe(i => main.innerHTML += (i + '<br>\n'));
+const tail = new Tail("/tmp/log");
+rx.Observable.fromEvent(tail, 'line').subscribe(line => console.log('rx: ' + line));
+tail.on('line', line => console.log('node: ' + line));
