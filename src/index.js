@@ -13,9 +13,7 @@ const adjust = (drawing) => (opacity, channel) =>
   drawing.select('.channel' + channel).style('opacity', opacity)
 
 const makeTailerStream = (targetLog) =>
-  rx.Observable
-    .fromEvent(new Tail(targetLog), 'line')
-    .throttle(20) // milliseconds
+  rx.Observable.fromEvent(new Tail(targetLog), 'line')
 
 const lineParser = (slice, radix, denominator) => (line) =>
   line.slice(slice).split(' ').map(num => parseInt(num, radix) / denominator)
@@ -24,6 +22,7 @@ const parseLineSimple = lineParser(0, 10, 100)
 
 const setupGraph = (drawing, tailerStream) =>
   tailerStream
+    .throttle(20) // milliseconds
     .map(parseLineSimple)
     .tap(opacityValues => console.log(opacityValues))
     .subscribe(opacityValues => opacityValues.forEach(adjust(drawing)))
