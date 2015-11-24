@@ -4,7 +4,7 @@
   "description": "Light show visualizer written in JS with Electron",
   "main": "src/main.js",
   "scripts": {
-    "start": "electron src/main.js sampleArg",
+    "start": "electron src/main.js /tmp/log",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

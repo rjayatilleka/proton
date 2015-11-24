@@ -1,14 +1,29 @@
 const $ = document.querySelector.bind(document);
+const $$ = document.querySelectorAll.bind(document);
+
 const rx = require('rx');
+const appRoot = require('app-root-path');
 const Tail = require('tail').Tail;
 const ipcRenderer = require('electron').ipcRenderer;
 
-const tail = new Tail("/tmp/log");
-rx.Observable
-  .fromEvent(tail, 'line')
-  .subscribe(line => console.log('rx: ' + line));
-tail.on('line', line => console.log('node: ' + line));
+$('#display').setAttribute('src', appRoot + '/images/example1.svg');
 
-ipcRenderer.on('arguments', (e, argv) => {
-  console.log(argv);
+adjust = (channel, opacity) => {
+  elements = $$('.channel' + channel)
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].style.opacity = opacity;
+  };
+};
+
+ipcRenderer.on('targetLog', (e, targetLog) => {
+  const tail = rx.Observable.fromEvent(new Tail(targetLog), 'line');
+
+  tail.map(line => line.split(' '))
+    .map(splitLine => splitLine.map(num => parseInt(num, 16)))
+    .subscribe(channels => {
+      console.log(channels);
+      for (var i = 0; i < channels.length; i++) {
+        adjust(i, channels[i]);
+      };
+    });
 });

@@ -18,6 +18,6 @@ app.on('ready', () => {
 
   // Send argument for log file
   webContents.on('did-finish-load', () => {
-    webContents.send('arguments', process.argv);
+    webContents.send('targetLog', process.argv[2]);
   });
 });

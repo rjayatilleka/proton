@@ -2,8 +2,8 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 
 <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 400 200">
-  <rect x="10" y="10" width="90" height="90" fill="red" />
-  <rect x="110" y="10" width="90" height="90" fill="red" />
-  <rect x="210" y="10" width="90" height="90" fill="red" />
-  <rect x="310" y="10" width="90" height="90" fill="red" />
+  <rect class="channel0" x="10" y="10" width="90" height="90" fill="red" />
+  <rect class="channel1" x="110" y="10" width="90" height="90" fill="red" />
+  <rect class="channel2" x="210" y="10" width="90" height="90" fill="red" />
+  <rect class="channel3" x="310" y="10" width="90" height="90" fill="red" />
 </svg>
