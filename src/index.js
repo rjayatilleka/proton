@@ -8,8 +8,9 @@ const ipcRenderer = require('electron').ipcRenderer;
 
 // $('#display').setAttribute('src', appRoot + '/images/example1.svg');
 
-adjust = (channel, opacity) =>
-  $$('.channel' + channel).forEach(e => e.style.opacity = opacity);
+const adjust = (channel, opacity) =>
+  Array.from($$('.channel' + channel))
+    .forEach(e => e.style.opacity = opacity);
 
 ipcRenderer.on('targetLog', (e, targetLog) => {
   const tail = rx.Observable.fromEvent(new Tail(targetLog), 'line');
@@ -19,5 +20,4 @@ ipcRenderer.on('targetLog', (e, targetLog) => {
     .tap(channelValues => console.log(channelValues))
     .subscribe(channelValues =>
       channelValues.forEach((channelValue, channel) => adjust(channel, channelValue)));
-    
 });
