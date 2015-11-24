@@ -1,5 +1,4 @@
 const appRoot = require('app-root-path');
-const fs = require('fs');
 
 const electron = require('electron');
 const app = electron.app;
@@ -10,8 +9,15 @@ var mainWindow = null;
 app.on('window-all-closed', () => app.quit());
 
 app.on('ready', () => {
+  // Window set up
   mainWindow = new BrowserWindow({width: 800, height: 600});
+  webContents = mainWindow.webContents;
   mainWindow.loadURL('file://' + appRoot + '/src/index.html');
-  mainWindow.webContents.openDevTools();
+  webContents.openDevTools();
   mainWindow.on('closed', () => mainWindow = null);
+
+  // Send argument for log file
+  webContents.on('did-finish-load', () => {
+    webContents.send('arguments', process.argv);
+  });
 });
