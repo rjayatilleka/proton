@@ -1,14 +1,8 @@
 const gulp = require('gulp');
-const packager = require('electron-packager')
-const exec = require('child_process').exec;
+const spawn = require('child_process').spawn
 
-gulp.task('run', (cb) => {
-  exec('$(npm bin)/electron app/src/main.js', function(error, stdout, stderr) {
-    console.log('stdout: ' + stdout);
-    console.log('stderr: ' + stderr);
-    if (error !== null) {
-        console.log('exec error: ' + error);
-    }
-    cb();
-  });
+gulp.task('start', () => {
+  const child = spawn('./node_modules/.bin/electron', ['app/src/main.js'])
 })
+
+
