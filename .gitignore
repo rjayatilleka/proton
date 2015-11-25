@@ -29,4 +29,7 @@ node_modules
 # Sublime configuration
 *.sublime-project
 *.sublime-workspace
+
+# Generated folders
 dist/
+build/

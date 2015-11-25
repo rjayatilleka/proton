@@ -13,7 +13,7 @@ let mainWindow = null
 app.on('window-all-closed', () => app.quit())
 
 app.on('ready', () => {
-  fs.readFile(appRoot + '/app/config/dev.yaml', 'utf8', (err, data) => {
+  fs.readFile(appRoot + '/app/static/config.yaml', 'utf8', (err, data) => {
     const config = yaml.safeLoad(data)
 
     // Window set up
