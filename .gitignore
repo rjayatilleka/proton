@@ -32,4 +32,4 @@ node_modules
 
 # Generated folders
 dist/
-build/
+generated/

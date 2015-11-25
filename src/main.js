@@ -13,12 +13,12 @@ let mainWindow = null
 app.on('window-all-closed', () => app.quit())
 
 app.on('ready', () => {
-  fs.readFile(appRoot + '/app/static/config.yaml', 'utf8', (err, data) => {
+  fs.readFile(appRoot + '/generated/config.yaml', 'utf8', (err, data) => {
     const config = yaml.safeLoad(data)
 
     // Window set up
     mainWindow = new BrowserWindow(config.size)
-    mainWindow.loadURL('file://' + appRoot + '/app/src/index.html')
+    mainWindow.loadURL('file://' + appRoot + '/src/index.html')
     mainWindow.on('closed', () => mainWindow = null)
 
     const webContents = mainWindow.webContents

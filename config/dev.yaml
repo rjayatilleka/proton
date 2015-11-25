@@ -2,7 +2,6 @@ logPath: /tmp/log
 size:
   width: 800
   height: 600
-svgPath: /app/images/example1.svg
 parserOpts:
   slice: 0
   radix: 10

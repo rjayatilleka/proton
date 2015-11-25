@@ -34,7 +34,7 @@ const main = () => {
     const lineParser = makeLineParser(config.parserOpts)
     const tailerStream = makeTailerStream(config.logPath)
 
-    drawSVGFile(drawing, appRoot + '/app/static/layout.svg')
+    drawSVGFile(drawing, appRoot + '/generated/layout.svg')
     setupGraph(drawing, lineParser, tailerStream)
   })
 }
