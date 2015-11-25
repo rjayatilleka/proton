@@ -1,0 +1,9 @@
+logPath: /tmp/log
+size:
+  width: 800
+  height: 600
+svgPath: /images/example1.svg
+parserOpts:
+  slice: 0
+  radix: 10
+  denominator: 100

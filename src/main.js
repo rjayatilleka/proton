@@ -1,6 +1,8 @@
 'use strict';
 
 const appRoot = require('app-root-path')
+const yaml = require('js-yaml')
+const fs = require('fs')
 
 const electron = require('electron')
 const app = electron.app
@@ -11,15 +13,18 @@ let mainWindow = null
 app.on('window-all-closed', () => app.quit())
 
 app.on('ready', () => {
-  // Window set up
-  mainWindow = new BrowserWindow({width: 800, height: 600})
-  mainWindow.loadURL('file://' + appRoot + '/src/index.html')
-  mainWindow.on('closed', () => mainWindow = null)
+  fs.readFile(appRoot + '/config/dev.yaml', 'utf8', (err, data) => {
+    const config = yaml.safeLoad(data)
 
-  const webContents = mainWindow.webContents
-  webContents.openDevTools()
+    // Window set up
+    mainWindow = new BrowserWindow(config.size)
+    mainWindow.loadURL('file://' + appRoot + '/src/index.html')
+    mainWindow.on('closed', () => mainWindow = null)
 
-  // Send argument for log file
-  webContents.on('did-finish-load', () =>
-    webContents.send('targetLog', process.argv[2]))
+    const webContents = mainWindow.webContents
+    webContents.openDevTools()
+
+    webContents.on('did-finish-load', () =>
+      webContents.send('config', config))
+  })
 })

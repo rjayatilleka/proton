@@ -15,24 +15,28 @@ const adjust = (drawing) => (opacity, channel) =>
 const makeTailerStream = (targetLog) =>
   rx.Observable.fromEvent(new Tail(targetLog), 'line')
 
-const lineParser = (slice, radix, denominator) => (line) =>
-  line.slice(slice).split(' ').map(num => parseInt(num, radix) / denominator)
-const parseLineVixen = lineParser(30, 16, 256)
-const parseLineSimple = lineParser(0, 10, 100)
+const makeLineParser = (opts) => (line) =>
+  line
+    .slice(opts.slice)
+    .split(' ')
+    .map(num => parseInt(num, opts.radix) / opts.denominator)
 
-const setupGraph = (drawing, tailerStream) =>
+const setupGraph = (drawing, lineParser, tailerStream) =>
   tailerStream
     .throttle(20) // milliseconds
-    .map(parseLineSimple)
+    .map(lineParser)
     .tap(opacityValues => console.log(opacityValues))
     .subscribe(opacityValues => opacityValues.forEach(adjust(drawing)))
 
 const main = () => {
-  const drawing = SVG('main').size(400, 200)
-  drawSVGFile(drawing, appRoot + '/images/example1.svg')
+  ipcRenderer.on('config', (e, config) => {
+    const drawing = SVG('main').size(config.size.width, config.size.height)
+    const lineParser = makeLineParser(config.parserOpts)
+    const tailerStream = makeTailerStream(config.logPath)
 
-  ipcRenderer.on('targetLog', (e, targetLog) =>
-    setupGraph(drawing, makeTailerStream(targetLog)))
+    drawSVGFile(drawing, appRoot + config.svgPath)
+    setupGraph(drawing, lineParser, tailerStream)
+  })
 }
 
 main()
