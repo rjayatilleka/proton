@@ -2,25 +2,28 @@ const gulp = require('gulp');
 const rename = require('gulp-rename')
 const del = require('del')
 const spawn = require('child_process').spawn
+const mergeStream = require('merge-stream')
 
 const launchApp = () =>
-  spawn('./node_modules/.bin/electron', ['src/main.js'])
+  spawn('./node_modules/.bin/electron', ['build/main.js'])
 
-const generate = (configPath, layoutPath) => {
-  gulp.src(configPath)
+const build = (configName, layoutName) => {
+  const configStream = gulp.src('config/' + configName + '.yaml')
     .pipe(rename('config.yaml'))
-    .pipe(gulp.dest('generated'))
+    .pipe(gulp.dest('build'))
 
-  gulp.src(layoutPath)
+  const layoutStream = gulp.src('images/' + layoutName + '.svg')
     .pipe(rename('layout.svg'))
-    .pipe(gulp.dest('generated'))
+    .pipe(gulp.dest('build'))
+
+  return mergeStream(configStream, layoutStream)
 }
 
 gulp.task('default', ['build-dev'], () =>
   launchApp())
 
 gulp.task('build-dev', ['clean'], () =>
-  generate('config/dev.yaml', 'images/example1.svg'))
+  generate('dev', 'example1'))
 
 gulp.task('clean', () =>
   del(['generated', 'dist']))

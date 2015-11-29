@@ -1,6 +1,5 @@
 'use strict';
 
-const appRoot = require('app-root-path')
 const fs = require('fs')
 const rx = require('rx')
 const Tail = require('tail').Tail
@@ -34,7 +33,7 @@ const main = () => {
     const lineParser = makeLineParser(config.parserOpts)
     const tailerStream = makeTailerStream(config.logPath)
 
-    drawSVGFile(drawing, appRoot + '/generated/layout.svg')
+    drawSVGFile(drawing, './layout.svg')
     setupGraph(drawing, lineParser, tailerStream)
   })
 }
