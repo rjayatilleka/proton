@@ -1,5 +1,5 @@
 {
-  "name": "electron-visualizer",
+  "name": "proton",
   "version": "1.0.0",
   "description": "Light show visualizer written in JS with Electron",
   "main": "src/main.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rjayatilleka/electron-visualizer.git"
+    "url": "git+https://github.com/rjayatilleka/proton.git"
   },
   "author": "Ramith Jayatilleka",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rjayatilleka/electron-visualizer/issues"
+    "url": "https://github.com/rjayatilleka/proton/issues"
   },
-  "homepage": "https://github.com/rjayatilleka/electron-visualizer#readme",
+  "homepage": "https://github.com/rjayatilleka/proton#readme",
   "devDependencies": {
     "del": "^2.1.0",
     "electron-packager": "^5.1.1",
