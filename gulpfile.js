@@ -5,7 +5,7 @@ const del = require('del')
 const spawn = require('child_process').spawn
 const argv = require('minimist')(process.argv.slice(2))
 
-gulp.task('default', [
+gulp.task('build', [
   'build-src',
   'build-lib',
   'build-templates',
