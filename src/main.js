@@ -1,11 +1,6 @@
-'use strict';
-
-const yaml = require('js-yaml')
-const fs = require('fs')
-
-const electron = require('electron')
-const app = electron.app
-const BrowserWindow = electron.BrowserWindow
+import yaml from 'js-yaml'
+import fs from 'fs'
+import {app, BrowserWindow} from 'electron'
 
 let mainWindow = null
 

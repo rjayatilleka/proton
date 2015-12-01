@@ -1,9 +1,7 @@
-'use strict';
-
-const fs = require('fs')
-const rx = require('rx')
-const Tail = require('tail').Tail
-const ipcRenderer = require('electron').ipcRenderer
+import fs from 'fs'
+import rx from 'rx'
+import {Tail} from 'tail'
+import {ipcRenderer} from 'electron'
 
 const drawSVGFile = (drawing, path) =>
   fs.readFile(path, 'utf8', (err, data) => drawing.svg(data))
