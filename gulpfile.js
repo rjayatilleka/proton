@@ -16,6 +16,8 @@ gulp.task('default', [
 gulp.task('clean', () =>
   del(['build', 'dist']))
 
+// ----- Build tasks -----
+
 gulp.task('build-src', () =>
   gulp.src('src/*')
     .pipe(babel({

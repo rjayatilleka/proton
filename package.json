@@ -1,6 +1,6 @@
 {
   "name": "proton",
-  "version": "1.1.0",
+  "version": "0.2.0",
   "description": "Light show visualizer written in JS with Electron",
   "main": "build/main.js",
   "scripts": {
