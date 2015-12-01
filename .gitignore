@@ -32,5 +32,7 @@ node_modules
 
 # Generated folders
 dist/
-generated/
+build/
+
+# Temporary files
 .DS_Store

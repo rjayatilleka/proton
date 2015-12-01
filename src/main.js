@@ -1,6 +1,5 @@
 'use strict';
 
-const appRoot = require('app-root-path')
 const yaml = require('js-yaml')
 const fs = require('fs')
 
@@ -13,7 +12,7 @@ let mainWindow = null
 app.on('window-all-closed', () => app.quit())
 
 app.on('ready', () => {
-  fs.readFile('./config.yaml', 'utf8', (err, data) => {
+  fs.readFile('./build/config.yaml', 'utf8', (err, data) => {
     const config = yaml.safeLoad(data)
 
     // Window set up

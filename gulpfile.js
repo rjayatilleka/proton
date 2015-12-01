@@ -8,22 +8,24 @@ const launchApp = () =>
   spawn('./node_modules/.bin/electron', ['build/main.js'])
 
 const build = (configName, layoutName) => {
-  const configStream = gulp.src('config/' + configName + '.yaml')
+  const configStream = gulp.src('config/' + configName)
     .pipe(rename('config.yaml'))
-    .pipe(gulp.dest('build'))
 
-  const layoutStream = gulp.src('images/' + layoutName + '.svg')
+  const layoutStream = gulp.src('images/' + layoutName)
     .pipe(rename('layout.svg'))
-    .pipe(gulp.dest('build'))
 
-  return mergeStream(configStream, layoutStream)
+  const srcStream = gulp.src('src/**/*')
+
+  const merged = mergeStream(configStream, layoutStream, srcStream)
+
+  return merged.pipe(gulp.dest('build'))
 }
 
 gulp.task('default', ['build-dev'], () =>
   launchApp())
 
 gulp.task('build-dev', ['clean'], () =>
-  generate('dev', 'example1'))
+  build('dev.yaml', 'example1.svg'))
 
 gulp.task('clean', () =>
-  del(['generated', 'dist']))
+  del(['build', 'dist']))
