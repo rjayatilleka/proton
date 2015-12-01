@@ -22,11 +22,11 @@
     "electron-packager": "^5.1.1",
     "electron-prebuilt": "^0.35.1",
     "gulp": "^3.9.0",
+    "gulp-babel": "^6.1.1",
     "gulp-rename": "^1.2.2",
-    "merge-stream": "^1.0.0"
+    "minimist": "^1.2.0"
   },
   "dependencies": {
-    "app-root-path": "^1.0.0",
     "js-yaml": "^3.4.5",
     "rx": "^4.0.7",
     "tail": "^0.4.0"
