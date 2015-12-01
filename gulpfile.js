@@ -21,6 +21,9 @@ gulp.task('clean', () =>
 gulp.task('build-src', () =>
   gulp.src('src/*')
     .pipe(babel({
+      plugins: ["transform-flow-strip-types"]
+    }))
+    .pipe(babel({
       presets: ['es2015-node5']
     }))
     .pipe(gulp.dest('build')))
