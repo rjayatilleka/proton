@@ -1,0 +1,16 @@
+{
+    "maxerr": 50,
+    "newcap": true,
+    "noempty": true,
+    "nonew": true,
+    "quotmark": "single",
+    "unused": true,
+    "maxlen": false,
+    "varstmt": false,
+
+    "asi": true,
+    "esnext": true,
+
+    "browser": true,
+    "node": false
+}
