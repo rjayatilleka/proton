@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 const rename = require('gulp-rename')
 const babel = require('gulp-babel')
+const eslint = require('gulp-eslint')
 const del = require('del')
 const argv = require('minimist')(process.argv.slice(2))
 
@@ -16,17 +17,18 @@ gulp.task('clean', () =>
   del(['build', 'dist']))
 
 gulp.task('lint', () =>
-  gulp.src('src/**/*.js'))
+  gulp.src('src/**/*.js')
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError()))
 
 // ----- Build tasks -----
 
-// gulp.task('build-src', ['lint'], () =>
-gulp.task('build-src', () =>
+gulp.task('build-src', ['lint'], () =>
+// gulp.task('build-src', () =>
   gulp.src('src/*')
     .pipe(babel({
-      plugins: ['transform-flow-strip-types']
-    }))
-    .pipe(babel({
+      plugins: ['transform-flow-strip-types'],
       presets: ['es2015-node5']
     }))
     .pipe(gulp.dest('build')))
