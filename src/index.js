@@ -22,12 +22,11 @@ const setupGraph = (drawing, lineParser, tailerStream) =>
   tailerStream
     .throttle(20) // milliseconds
     .map(lineParser)
-    .tap(opacityValues => console.log(opacityValues))
     .subscribe(opacityValues => opacityValues.forEach(adjust(drawing)))
 
 const main = () => {
   ipcRenderer.on('config', (e, config) => {
-    const drawing = SVG('main').size(config.size.width, config.size.height)
+    const drawing = window.SVG('main').size(config.size.width, config.size.height)
     const lineParser = makeLineParser(config.parserOpts)
     const tailerStream = makeTailerStream(config.logPath)
 

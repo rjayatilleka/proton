@@ -6,6 +6,7 @@ const del = require('del')
 const argv = require('minimist')(process.argv.slice(2))
 
 gulp.task('build', [
+  'lint',
   'build-src',
   'build-lib',
   'build-templates',
@@ -24,13 +25,9 @@ gulp.task('lint', () =>
 
 // ----- Build tasks -----
 
-gulp.task('build-src', ['lint'], () =>
-// gulp.task('build-src', () =>
+gulp.task('build-src', () =>
   gulp.src('src/*')
-    .pipe(babel({
-      plugins: ['transform-flow-strip-types'],
-      presets: ['es2015-node5']
-    }))
+    .pipe(babel())
     .pipe(gulp.dest('build')))
 
 gulp.task('build-lib', () =>
