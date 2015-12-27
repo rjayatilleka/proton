@@ -11,7 +11,7 @@ rules:
     - 2
     - unix
   semi:
-    - 2
+    - 0
     - never
   handle-callback-err: 0
 
