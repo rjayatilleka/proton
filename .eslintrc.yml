@@ -1,22 +1,22 @@
 parser: "babel-eslint"
-rules:
-  # Modifications to standard
+env:
+  es6: true
+  node: true
+  browser: true
+extends: 'standard'
+
+rules: # Modifications to standard
   indent:
     - 2
     - 2
   quotes:
-    - 2
+    - 1
     - single
   linebreak-style:
     - 2
     - unix
   semi:
     - 0
-    - never
+    - always
   handle-callback-err: 0
-
-env:
-  es6: true
-  node: true
-  browser: true
-extends: 'standard'
+  space-before-function-paren: 0

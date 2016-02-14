@@ -1,0 +1,26 @@
+If I just run my linter from the command line, I get the following:
+
+    $ ./node_modules/.bin/eslint -f compact src/main.js
+    
+    /Users/rjayatilleka/Dropbox/code/proton/src/main.js: line 8, col 10, Error - "dummyFunc" is defined but never used (no-unused-vars)
+    /Users/rjayatilleka/Dropbox/code/proton/src/main.js: line 10, col 15, Warning - Strings must use singlequote. (quotes)
+    
+    2 problems
+
+I'm setting makeprg and errorformat as follows (which was just copied from the Syntastic eslint checker):
+
+    set makeprg=./node_modules/.bin/eslint\ -f\ compact\ %
+    set errorformat+=%E%f:\ line\ %l\,\ col\ %c\,\ Error\ -\ %m
+    set errorformat+=%W%f:\ line\ %l\,\ col\ %c\,\ Warning\ -\ %m
+
+When I run `:make` and `:copen`, I get the following:
+
+    || /Users/rjayatilleka/Dropbox/code/proton/src/main.js: line 8, col 10, Error - "dummyFunc" is defined but never used (no-unused-vars)
+    || /Users/rjayatilleka/Dropbox/code/proton/src/main.js: line 10, col 15, Warning - Strings must use singlequote. (quotes)
+    || 
+    || 2 problems
+
+And the output from `:make` and `:cn` always reference `($ of 4)`. Out of 4, not 2. I just not really sure why my errorformat isn't working. I tried the following errorformats, but they just gave me errors when launching vim.
+
+    set errorformat+=%E\|\| %f:\ line\ %l\,\ col\ %c\,\ Error\ -\ %m
+    set errorformat+=%W\|\| %f:\ line\ %l\,\ col\ %c\,\ Warning\ -\ %m

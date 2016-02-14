@@ -1,14 +1,9 @@
-import yaml from 'js-yaml'
+import yaml from 'js-yaml';
 
-import fs from 'fs'
-import {app, BrowserWindow} from 'electron'
+import fs from 'fs';
+import {app, BrowserWindow} from 'electron';
 
 let mainWindow = null;
-
-function dummyFunc(helloMsg, logger) {
-  logger.log(helloMsg);
-  console.log('Logged!');
-}
 
 app.on('window-all-closed', () => app.quit());
 
@@ -24,6 +19,7 @@ app.on('ready', () => {
     const webContents = mainWindow.webContents;
     webContents.openDevTools();
 
-    webContents.on('did-finish-load', () => webContents.send('config', config))
+    webContents.on('did-finish-load',
+      () => webContents.send('config', config));
   });
 });
